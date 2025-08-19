@@ -10,7 +10,7 @@ export default function ThemeToggle() {
     if (isTerminal) {
       document.body.classList.add('terminal-theme');
     } else {
-      document.body.classList.remove('terminal-theme');
+      document.body.classList.add('terminal-theme');
     }
   }, [isTerminal]);
 

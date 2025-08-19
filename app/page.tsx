@@ -7,13 +7,13 @@ import Projects from '@/components/Projects';
 import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
 import ThemeToggle from '@/components/ThemeToggle';
-import KonamiCode from '@/components/KonamiCode';
+
 
 export default function Home() {
   return (
     <div className="crt-screen">
       <ThemeToggle />
-      <KonamiCode />
+      
       
       <Hero />
       <About />
