@@ -31,9 +31,9 @@ export default function Hero() {
       }
 
       // Hotkeys for menu
-      if (e.key.toLowerCase() === 's') scrollToSection('about');
-      if (e.key.toLowerCase() === 'p') scrollToSection('about'); // adjust if PROFILE has a different id
-      if (e.key.toLowerCase() === 'r') scrollToSection('repo');    // adjust if REPO has a different id
+      if (e.key.toLowerCase() === 's') scrollToSection('Contact');
+      if (e.key.toLowerCase() === 'p') scrollToSection('About'); // adjust if PROFILE has a different id
+      if (e.key.toLowerCase() === 'r') scrollToSection('Projects');    // adjust if REPO has a different id
     };
 
     window.addEventListener('keydown', handleKeyPress);
@@ -177,8 +177,8 @@ export default function Hero() {
                 className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto"
               >
                 {[
-                  { label: 'START', sub: 'Enter Portfolio', hotkey: 'S', target: 'about' },
-                  { label: 'PROFILE', sub: 'About Me', hotkey: 'P', target: 'about' },
+                  { label: 'START', sub: 'Enter Portfolio', hotkey: 'S', target: 'About' },
+                  { label: 'PROFILE', sub: 'About Me', hotkey: 'P', target: 'About.tsx' },
                   { label: 'REPO SYNC', sub: 'GitHub Import', hotkey: 'R', target: 'repo' },
                 ].map((item) => (
                   <button
