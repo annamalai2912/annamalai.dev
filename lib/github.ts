@@ -16,8 +16,8 @@ export interface GitHubUser {
   public_repos: number;
   location: string;
   blog: string;
-  twitter_username: string;
-  company: string;
+  twitter_username: string | null;
+  company: string | null;
 }
 
 export interface Repository {
@@ -68,7 +68,7 @@ export async function fetchRepositories(): Promise<Repository[]> {
       username,
       sort: 'updated',
       per_page: 6,
-      type: 'public'
+      type: 'owner'
     });
     return data as Repository[];
   } catch (error) {
@@ -84,8 +84,8 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
       per_page: 100
     });
     
-    const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-    const totalForks = repos.reduce((sum, repo) => sum + repo.forks_count, 0);
+    const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count ?? 0), 0);
+    const totalForks = repos.reduce((sum, repo) => sum + (repo.forks_count ?? 0), 0);
     
     // Note: GitHub doesn't provide contribution count via API
     // This would need to be scraped or manually updated
