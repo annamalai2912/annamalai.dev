@@ -9,6 +9,12 @@ export default function Hero() {
   const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Scroll helper
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
+  };
+
   useEffect(() => {
     // Lazy-init audio so some browsers allow playback after user gesture
     if (!audioRef.current) {
@@ -23,7 +29,13 @@ export default function Hero() {
       if (e.code === 'Space' || e.code === 'Enter') {
         handleStart();
       }
+
+      // Hotkeys for menu
+      if (e.key.toLowerCase() === 's') scrollToSection('about');
+      if (e.key.toLowerCase() === 'p') scrollToSection('about'); // adjust if PROFILE has a different id
+      if (e.key.toLowerCase() === 'r') scrollToSection('repo');    // adjust if REPO has a different id
     };
+
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, []);
@@ -72,10 +84,10 @@ export default function Hero() {
                 className="p-8 bg-black/40 backdrop-blur-[1px] border border-emerald-400/40 rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.25)] pixel-card"
               >
                 <motion.pre
-  initial={{ opacity: 0, y: -10 }}
-  animate={{ opacity: 1, y: 0 }}
-  className="pixel-font text-[6px] md:text-[10px] leading-none glow-text-emerald mb-6 text-center"
->
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="pixel-font text-[6px] md:text-[10px] leading-none glow-text-emerald mb-6 text-center"
+                >
  {`
      █████╗ ███╗   ██╗███╗   ██╗ █████╗ ███╗   ███╗ █████╗ ██╗      █████╗ ██╗    ██████╗ ███████╗██╗   ██╗
     ██╔══██╗████╗  ██║████╗  ██║██╔══██╗████╗ ████║██╔══██╗██║     ██╔══██╗██║    ██╔══██╗██╔════╝██║   ██║
@@ -84,7 +96,7 @@ export default function Hero() {
     ██║  ██║██║ ╚████║██║ ╚████║██║  ██║██║ ╚═╝ ██║██║  ██║███████╗██║  ██║██║ ██╗██████╔╝███████╗ ╚████╔╝ 
     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝ ╚═╝╚═════╝ ╚══════╝  ╚═══╝  
         `}
-</motion.pre>
+                </motion.pre>
                 <p className="mono-font text-xl md:text-2xl text-emerald-300/95">
                   &gt; Deep&nbsp;Learning&nbsp;Engineer_
                   &gt; TechKnots
@@ -157,7 +169,7 @@ export default function Hero() {
                 SYSTEM READY — SCROLL DOWN TO CONTINUE
               </motion.div>
 
-              {/* Retro menu stubs you can hook up later */}
+              {/* Retro menu */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -165,14 +177,14 @@ export default function Hero() {
                 className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto"
               >
                 {[
-                  { label: 'START', sub: 'Enter Portfolio', hotkey: 'S' },
-                  { label: 'PROFILE', sub: 'About Me', hotkey: 'P' },
-                  { label: 'REPO SYNC', sub: 'GitHub Import', hotkey: 'R' },
+                  { label: 'START', sub: 'Enter Portfolio', hotkey: 'S', target: 'about' },
+                  { label: 'PROFILE', sub: 'About Me', hotkey: 'P', target: 'about' },
+                  { label: 'REPO SYNC', sub: 'GitHub Import', hotkey: 'R', target: 'repo' },
                 ].map((item) => (
                   <button
                     key={item.label}
                     className="group relative p-4 rounded-2xl border border-emerald-400/40 bg-black/30 hover:bg-black/40 transition shadow-[0_0_20px_rgba(16,185,129,0.15)]"
-                    onClick={() => console.log(`${item.label} clicked`)}
+                    onClick={() => scrollToSection(item.target)}
                   >
                     <div className="flex items-center justify-between">
                       <span className="pixel-font text-emerald-200 text-lg tracking-wide group-hover:translate-x-0.5 transition-transform">
@@ -196,7 +208,6 @@ export default function Hero() {
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        {/* Replace with your own image at /avatar.png for pixel look */}
         <div className="w-full h-full rounded-2xl border border-emerald-400/40 bg-emerald-400/10 backdrop-blur-[1px]" />
       </motion.div>
 
