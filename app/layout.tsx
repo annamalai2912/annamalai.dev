@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: 'A retro pixel-art developer portfolio inspired by 8-bit games and terminals',
   keywords: 'developer, portfolio, retro, pixel art, 8-bit, programming',
 };
-
+// In _app.tsx or layout.tsx
 export default function RootLayout({
   children,
 }: {
@@ -28,7 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pressStart2P.variable} ${vt323.variable} overflow-x-hidden`}>
-        {children}
+        <div className="min-h-screen px-4 sm:px-6 md:px-12 lg:px-24">
+          {children}
+        </div>
       </body>
     </html>
   );
